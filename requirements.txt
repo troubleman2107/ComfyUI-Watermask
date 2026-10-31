@@ -1,0 +1,3 @@
+Pillow>=10.1.0
+numpy>=1.24.0
+# torch is supplied by ComfyUI. Do not replace its CUDA/ROCm build here.
