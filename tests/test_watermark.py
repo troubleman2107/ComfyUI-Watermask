@@ -179,3 +179,25 @@ def test_example_workflows_have_consistent_links_and_runnable_watermark():
                 link = next(l for l in workflow['links'] if l[0] == inlet['link'])
                 assert nodes[link[1]]['type'] == 'GetVideoComponents'
                 assert link[2] == source_slot
+
+
+def test_node_loads_and_renders_without_numpy(monkeypatch):
+    """The node must not force users to upgrade NumPy in older ComfyUI installs."""
+    import builtins
+    original_import = builtins.__import__
+
+    def without_numpy(name, *args, **kwargs):
+        if name == 'numpy' or name.startswith('numpy.'):
+            raise ImportError('NumPy deliberately unavailable for this regression test')
+        return original_import(name, *args, **kwargs)
+
+    monkeypatch.setattr(builtins, '__import__', without_numpy)
+    spec = importlib.util.spec_from_file_location('watermark_without_numpy', ROOT / 'watermark.py')
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    source = torch.zeros(2, 120, 240, 3)
+    result = module.TextWatermark().apply(source, text='Tiếng Việt')[0]
+    assert result.shape == source.shape
+    assert result.max() > 0
+    assert torch.equal(result[0], result[1])
+    assert source.max() == 0

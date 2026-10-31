@@ -59,11 +59,13 @@ khung hình video trong ComfyUI. Có sẵn font Noto Sans hỗ trợ tiếng Vi�
 5. Nhấp đúp canvas, tìm **Text Watermark (Image & Video)**, trong nhóm `image/watermark`.
 
 `torch` đã có trong ComfyUI nên requirements không cài lại, tránh thay nhầm bản CUDA.
+Node không phụ thuộc NumPy và không yêu cầu thay đổi phiên bản NumPy của ComfyUI.
 Python yêu cầu từ 3.10, Pillow từ 10.1.0.
 
 ## Cài trực tiếp từ GitHub
 
-Tại thư mục `ComfyUI/custom_nodes`, chạy:
+Mở terminal tại thư mục **`ComfyUI/custom_nodes`**, chạy lệnh dưới đây.
+Đường dẫn đích chỉ là `ComfyUI-Text-Watermark`; không thêm `custom_nodes/` lần nữa:
 
 ```bash
 git clone https://github.com/troubleman2107/ComfyUI-Watermask.git ComfyUI-Text-Watermark
@@ -152,6 +154,35 @@ chi tiết tại `fonts/OFL.txt`. Chỉ thêm font mà bạn có quyền sử d�
 - **Không thấy chữ:** kiểm tra opacity, màu chữ, offset, margin và cỡ chữ.
 - **Video mất tiếng / sai tốc độ:** kiểm tra các dây audio và fps như sơ đồ.
 - **Workflow báo thiếu node:** cập nhật ComfyUI; ví dụ video dùng các node video lõi.
+
+### Nếu đã cài bản đầu và NumPy bị nâng lên 2.x
+
+Bản đầu từng khai báo `numpy>=1.24.0`. Bản hiện tại đã bỏ hoàn toàn phụ thuộc
+NumPy, dùng bộ đệm ảnh Pillow chuyển thẳng sang PyTorch.
+
+1. Tắt ComfyUI và cập nhật node bằng `git pull --ff-only` trong thư mục node.
+2. Dùng **chính Python đã chạy lệnh pip gây nâng phiên bản** để khôi phục NumPy
+   về phiên bản trước đó ghi trong log. Ví dụ log có `Found existing installation:
+   numpy 1.23.5`, chạy:
+
+   ```powershell
+   python -m pip install "numpy==1.23.5"
+   ```
+
+   Đây là ví dụ phục hồi bản cũ theo log, không phải phiên bản bắt buộc của node.
+   Nếu log của bạn ghi phiên bản khác, dùng đúng phiên bản đó.
+3. Nếu terminal đang ở `ComfyUI/custom_nodes` nhưng đã clone với đích
+   `custom_nodes/ComfyUI-Text-Watermark`, node bị lồng thừa một cấp. Chuyển thư mục
+   con lên, chỉ khi chưa có node cùng tên ở đích:
+
+   ```powershell
+   if (-not (Test-Path .\ComfyUI-Text-Watermark)) {
+       Move-Item .\custom_nodes\ComfyUI-Text-Watermark .\ComfyUI-Text-Watermark
+   }
+   ```
+
+4. Cài requirements mới bằng Python của ComfyUI rồi khởi động lại.
+   Không chạy requirements của bản cũ trước khi `git pull`.
 
 ## Kiểm thử cho lập trình viên
 

@@ -2,7 +2,6 @@
 from pathlib import Path
 import math
 
-import numpy as np
 from PIL import Image, ImageColor, ImageDraw, ImageFont
 import torch
 
@@ -156,7 +155,9 @@ class TextWatermark:
             return (images,)
         x0, y0, x1, y1 = roi
         # Render once, reuse for every frame; never quantize the source image to uint8.
-        overlay = torch.from_numpy(np.array(layer.crop(roi), dtype=np.float32) / 255).to(images.device)
+        pixels = bytearray(layer.crop(roi).tobytes())
+        overlay = torch.frombuffer(pixels, dtype=torch.uint8).reshape(y1 - y0, x1 - x0, 4)
+        overlay = overlay.to(device=images.device, dtype=torch.float32).div_(255)
         src_rgb = overlay[..., :3]
         src_a = overlay[..., 3:4] * opacity
         result = images.clone()

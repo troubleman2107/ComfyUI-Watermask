@@ -17,3 +17,12 @@ execution. CUDA/ROCm and Windows/Linux execution were not tested locally. CI is
 included but has not run remotely. Core video decoding/encoding is delegated to
 ComfyUI, not exercised by the unit suite. Published to https://github.com/troubleman2107/ComfyUI-Watermask on branch main.
 The full 29-test suite was rerun successfully before the initial push.
+
+## Dependency compatibility fix
+
+- Removed the direct NumPy import, conversion and requirement. Pillow RGBA bytes
+  now pass through a writable bytearray into torch.frombuffer.
+- Regression test blocks NumPy imports while loading a fresh node module and
+  rendering a real two-frame tensor. It failed before the fix and passes after.
+- Full suite after fix: 30 passed. Compile check passed.
+- Added recovery instructions for previously upgraded NumPy and nested install paths.
