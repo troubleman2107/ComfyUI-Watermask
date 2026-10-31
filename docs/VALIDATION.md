@@ -15,5 +15,5 @@
 Limitations: no live ComfyUI frontend/backend was installed for end-to-end queue
 execution. CUDA/ROCm and Windows/Linux execution were not tested locally. CI is
 included but has not run remotely. Core video decoding/encoding is delegated to
-ComfyUI, not exercised by the unit suite. No remote push until repository URL
-is supplied.
+ComfyUI, not exercised by the unit suite. Published to https://github.com/troubleman2107/ComfyUI-Watermask on branch main.
+The full 29-test suite was rerun successfully before the initial push.

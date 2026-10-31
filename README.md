@@ -20,6 +20,9 @@ khung hình video trong ComfyUI. Có sẵn font Noto Sans hỗ trợ tiếng Vi�
 1. Giải nén thư mục `ComfyUI-Text-Watermark` vào thư mục **custom_nodes** của
    bản ComfyUI bạn đang chạy. Với Desktop, mở thư mục cài đặt/người dùng ComfyUI
    qua ứng dụng rồi tìm `custom_nodes`; không đặt vào thư mục ứng dụng đóng gói.
+   Nếu tải bằng **Code → Download ZIP** trên GitHub, đổi tên thư mục
+   `ComfyUI-Watermask-main` thành `ComfyUI-Text-Watermark` trước khi chép.
+
 2. Kiểm tra cấu trúc, tránh lồng thêm một cấp thư mục:
 
    ```text
@@ -58,12 +61,12 @@ khung hình video trong ComfyUI. Có sẵn font Noto Sans hỗ trợ tiếng Vi�
 `torch` đã có trong ComfyUI nên requirements không cài lại, tránh thay nhầm bản CUDA.
 Python yêu cầu từ 3.10, Pillow từ 10.1.0.
 
-## Cài từ Git sau khi repo được push
+## Cài trực tiếp từ GitHub
 
-Tại thư mục `ComfyUI/custom_nodes`, thay `<URL_REPO>` bằng repo chứa package này:
+Tại thư mục `ComfyUI/custom_nodes`, chạy:
 
 ```bash
-git clone <URL_REPO> ComfyUI-Text-Watermark
+git clone https://github.com/troubleman2107/ComfyUI-Watermask.git ComfyUI-Text-Watermark
 ```
 
 Sau đó thực hiện bước cài dependencies và khởi động lại ở trên.

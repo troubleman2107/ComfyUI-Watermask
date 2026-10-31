@@ -19,6 +19,6 @@ frame-batch processing integrates core video nodes and VHS. Builder selected
 frame-batch processing. No web UI extension or external service needed.
 
 Delivery: source, real tensor tests, image and video workflow JSON, Vietnamese
-README, installable ZIP, local Git commit. Push requires the user's repo URL;
-none has been supplied. Current Blender repo is unrelated and has no remote,
+README, installable ZIP, local Git commit. Repository supplied after implementation:
+https://github.com/troubleman2107/ComfyUI-Watermask. Current Blender repo is unrelated and has no remote,
 so create a separate package/repository without staging Blender files.

@@ -38,4 +38,4 @@ Consumes: Task 1 node schema. Produces: image/video workflows and installable ZI
 - [x] Verify node dispatch from workflow widget defaults and link consistency.
 - [x] Render sample output, inspect image; run full suite and compile check.
 - [x] Review complete diff, fix material findings, commit and package tracked files.
-- [ ] Push when repo URL supplied; currently pending destination.
+- [x] Push to https://github.com/troubleman2107/ComfyUI-Watermask, branch main.
